@@ -1,0 +1,20 @@
+{
+  "puzzle_id": "a-001",
+  "hook": "Can you answer it?",
+  "instruction": "All answers start with letter A",
+  "items": [
+    "Anvil",
+    "Anchor",
+    "Abacus",
+    "Airplane"
+  ],
+  "timer_seconds": 15,
+  "fps": 30,
+  "title": "Can you answer it? \ud83e\udd14 #shorts",
+  "description": "Comment your answers (4 words).\n\n\ud83c\udf81 Monthly Surprise:\nSubscribers with the highest correct answers this month get a surprise gift!\n\n#quiz #brainteaser #shorts\n\n(Puzzle: a-001)",
+  "tags": [
+    "quiz",
+    "brainteaser",
+    "shorts"
+  ]
+}

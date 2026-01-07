@@ -1,0 +1,238 @@
+[
+  {
+    "id": "a-001",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter A",
+    "letter": "A",
+    "items": ["Anvil", "Anchor", "Abacus", "Airplane"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "b-002",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter B",
+    "letter": "B",
+    "items": ["Bulldozer", "Butterfly", "Binoculars", "Barometer"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "c-003",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter C",
+    "letter": "C",
+    "items": ["Catapult", "Compass", "Candle", "Castle"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "d-004",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter D",
+    "letter": "D",
+    "items": ["Drone", "Dolphin", "Doorbell", "Dumbbell"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "e-005",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter E",
+    "letter": "E",
+    "items": ["Excavator", "Eiffel Tower", "Easel", "Electric Guitar"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "f-006",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter F",
+    "letter": "F",
+    "items": ["Forklift", "Fire Extinguisher", "Ferris Wheel", "Flamingo"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "g-007",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter G",
+    "letter": "G",
+    "items": ["Giraffe", "Globe", "Generator", "Gavel"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "h-008",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter H",
+    "letter": "H",
+    "items": ["Helicopter", "Hourglass", "Harp", "Hydrant"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "i-009",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter I",
+    "letter": "I",
+    "items": ["Igloo", "Iron", "Iceberg", "Ink Bottle"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "j-010",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter J",
+    "letter": "J",
+    "items": ["Joystick", "Jeep", "Jet Engine", "Jukebox"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+
+  {
+    "id": "k-011",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter K",
+    "letter": "K",
+    "items": ["Kettle", "Keyboard", "Kangaroo", "Keychain"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "l-012",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter L",
+    "letter": "L",
+    "items": ["Lighthouse", "Laptop", "Lantern", "Ladder"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "m-013",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter M",
+    "letter": "M",
+    "items": ["Microscope", "Motorcycle", "Megaphone", "Mailbox"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "n-014",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter N",
+    "letter": "N",
+    "items": ["Neon Sign", "Notebook", "Nail Clipper", "Narwhal"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "o-015",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter O",
+    "letter": "O",
+    "items": ["Obelisk", "Oven", "Oil Lamp", "Octopus"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "p-016",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter P",
+    "letter": "P",
+    "items": ["Parachute", "Pyramid", "Piano", "Paintbrush"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "q-017",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter Q",
+    "letter": "Q",
+    "items": ["Quill", "Quartz Crystal", "Quilt", "Quad Bike"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "r-018",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter R",
+    "letter": "R",
+    "items": ["Rocket", "Radar", "Record Player", "Rubber Duck"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "s-019",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter S",
+    "letter": "S",
+    "items": ["Scarecrow", "Snowman", "Submarine", "Sundial"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "t-020",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter T",
+    "letter": "T",
+    "items": ["Telescope", "Tank", "Typewriter", "Torch"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+
+  {
+    "id": "u-021",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter U",
+    "letter": "U",
+    "items": ["Umbrella", "Unicycle", "USB Flash Drive", "Urn"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "v-022",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter V",
+    "letter": "V",
+    "items": ["Volcano", "Violin", "Vacuum Cleaner", "Vase"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "w-023",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter W",
+    "letter": "W",
+    "items": ["Windmill", "Wrench", "Washing Machine", "Wheelbarrow"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "x-024",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter X",
+    "letter": "X",
+    "items": ["Xylophone", "X-ray Machine", "Xbox Controller", "Xylitol Candy"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  },
+  {
+    "id": "y-025",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter Y",
+    "letter": "Y",
+    "items": ["Yacht", "Yo-yo", "Yarn", "Yellow Submarine"],
+    "difficulty": "hard",
+    "category": "letter_game"
+  },
+  {
+    "id": "z-026",
+    "prompt": "Can you answer it?",
+    "rule": "All answers start with letter Z",
+    "letter": "Z",
+    "items": ["Zebra", "Zipper", "Ziggurat", "Zoo Gate"],
+    "difficulty": "impossible",
+    "category": "letter_game"
+  }
+]
