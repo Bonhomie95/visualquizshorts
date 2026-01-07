@@ -3,7 +3,8 @@ from __future__ import annotations
 import time
 from datetime import timedelta
 
-from src.pipeline.runner import run_once
+from src.pipeline.runner import run_once as render_once
+from src.pipeline.uploader import upload_video
 from src.config.settings import (
     UPLOAD_INTERVAL_HOURS,
     LAST_RUN_FILE,
@@ -20,19 +21,11 @@ class UploadScheduler:
     def __init__(self) -> None:
         self.interval = timedelta(hours=UPLOAD_INTERVAL_HOURS)
 
-    # =====================================================
-    # CHECK IF WE SHOULD RUN
-    # =====================================================
-
     def should_run(self) -> bool:
         last_run = read_timestamp(LAST_RUN_FILE)
         if not last_run:
             return True
         return utc_now() - last_run >= self.interval
-
-    # =====================================================
-    # COUNTDOWN SLEEP
-    # =====================================================
 
     def sleep_until_next_run(self) -> None:
         last_run = read_timestamp(LAST_RUN_FILE)
@@ -42,9 +35,7 @@ class UploadScheduler:
         next_run = last_run + self.interval
 
         while True:
-            now = utc_now()
-            remaining = int((next_run - now).total_seconds())
-
+            remaining = int((next_run - utc_now()).total_seconds())
             if remaining <= 0:
                 return
 
@@ -52,36 +43,40 @@ class UploadScheduler:
             minutes = (remaining % 3600) // 60
 
             if remaining > 3600:
-                log.info(f"⏳ Next upload in {hours}h {minutes}m")
-                sleep_for = 3600  # 1 hour
+                log.info("⏳ Next upload in %dh %dm", hours, minutes)
+                time.sleep(3600)
             elif remaining > 600:
-                log.info(f"⚠️ Final hour: next upload in {minutes} minutes")
-                sleep_for = 600  # 10 minutes
+                log.info("⚠️ Final hour: %dm remaining", minutes)
+                time.sleep(600)
             else:
-                log.info(f"🚨 Final countdown: {minutes} minute(s) left")
-                sleep_for = 60  # 1 minute
-
-            time.sleep(min(sleep_for, remaining))
-
-    # =====================================================
-    # MAIN LOOP
-    # =====================================================
+                log.info("🚨 Final countdown: %dm remaining", minutes)
+                time.sleep(60)
 
     def run_forever(self) -> None:
         log.info("🟢 Scheduler started")
-        log.info(f"⏱ Upload interval: {UPLOAD_INTERVAL_HOURS} hour(s)")
-        log.info(f"🧪 DRY_RUN = {DRY_RUN}")
+        log.info("⏱ Upload interval: %d hour(s)", UPLOAD_INTERVAL_HOURS)
+        log.info("🧪 DRY_RUN = %s", DRY_RUN)
 
         while True:
             try:
                 if self.should_run():
-                    log.info("🚀 Starting pipeline run")
-                    video_path, meta_path = run_once()
+                    log.info("🚀 Rendering video")
+                    video_path, meta_path = render_once()
+
+                    if DRY_RUN:
+                        log.warning("🧪 DRY_RUN enabled — skipping upload")
+                    else:
+                        log.info("☁️ Uploading to YouTube")
+                        metrics = upload_video(video_path, meta_path)
+
+                        if not metrics["success"]:
+                            raise RuntimeError(metrics["error"])
 
                     write_timestamp(LAST_RUN_FILE, utc_now())
 
                     log.info("✅ Pipeline completed")
-                    log.info(f"🎬 Video: {video_path}")
+                    log.info("🎬 Video: %s", video_path.name)
+
                 else:
                     self.sleep_until_next_run()
 
@@ -92,11 +87,6 @@ class UploadScheduler:
             except Exception:
                 log.exception("🔥 Scheduler error — retrying in 5 minutes")
                 time.sleep(300)
-
-
-# =====================================================
-# ENTRY POINT
-# =====================================================
 
 
 def main() -> None:
