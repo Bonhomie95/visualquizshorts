@@ -7,13 +7,16 @@ from ..puzzle.loader import select_next_puzzle, Puzzle
 from ..media.wiki import fetch_images_for_items
 from ..video.renderer import RenderJob, render_job_to_mp4
 from ..config.settings import OUTPUT_DIR
+from ..utils.logger import get_logger
 
+log = get_logger("runner")
 
 # =========================================================
 # STATE
 # =========================================================
 
 USED_FILE = OUTPUT_DIR / "used_puzzles.txt"
+MAX_PUZZLE_ATTEMPTS = 10  # safety guard to avoid infinite loops
 
 
 def load_used_ids() -> Set[str]:
@@ -39,33 +42,77 @@ def mark_used(puzzle_id: str) -> None:
 
 
 def run_once() -> tuple[Path, Path]:
+    """
+    Runs the pipeline once:
+    - Selects a puzzle
+    - Fetches images
+    - Renders video
+    - Skips puzzles that fail
+    """
+
     used: Set[str] = load_used_ids()
+    last_error: Exception | None = None
 
-    puzzle: Puzzle = select_next_puzzle(used)
+    for attempt in range(1, MAX_PUZZLE_ATTEMPTS + 1):
+        puzzle: Puzzle = select_next_puzzle(used)
 
-    puzzle_id: str = puzzle["id"]
-    hook: str = puzzle["prompt"]
-    instruction: str = puzzle["rule"]
-    items: list[str] = puzzle["items"]
+        puzzle_id: str = puzzle["id"]
+        hook: str = puzzle["prompt"]
+        instruction: str = puzzle["rule"]
+        items: list[str] = puzzle["items"]
 
-    images = fetch_images_for_items(items)
+        log.info(
+            "🧩 Puzzle attempt %d/%d — %s",
+            attempt,
+            MAX_PUZZLE_ATTEMPTS,
+            puzzle_id,
+        )
 
-    job = RenderJob(
-        puzzle_id=puzzle_id,
-        hook=hook,
-        instruction=instruction,
-        items=items,
-        images=images,
-        duration_seconds=20,
-        title="Can you answer it? 🤔 #shorts",
-        tags=["quiz", "brainteaser", "shorts"],
-    )
+        try:
+            # -------------------------------------------------
+            # IMAGE FETCH
+            # -------------------------------------------------
+            images = fetch_images_for_items(items)
 
-    video_path, meta_path = render_job_to_mp4(job)
+            # -------------------------------------------------
+            # RENDER
+            # -------------------------------------------------
+            job = RenderJob(
+                puzzle_id=puzzle_id,
+                hook=hook,
+                instruction=instruction,
+                items=items,
+                images=images,
+                duration_seconds=20,
+                title="Can you answer it? 🤔 #shorts",
+                tags=["quiz", "brainteaser", "shorts"],
+            )
 
-    mark_used(puzzle_id)
+            video_path, meta_path = render_job_to_mp4(job)
 
-    return video_path, meta_path
+            mark_used(puzzle_id)
+
+            log.info("✅ Puzzle %s rendered successfully", puzzle_id)
+            return video_path, meta_path
+
+        except Exception as e:
+            last_error = e
+            log.warning(
+                "⚠️ Skipping puzzle %s due to error: %s",
+                puzzle_id,
+                str(e),
+            )
+
+            # Mark as used so we never retry this bad puzzle
+            mark_used(puzzle_id)
+            used.add(puzzle_id)
+
+    # -----------------------------------------------------
+    # FAIL SAFE
+    # -----------------------------------------------------
+    raise RuntimeError(
+        f"Failed to render a video after {MAX_PUZZLE_ATTEMPTS} puzzle attempts"
+    ) from last_error
 
 
 # =========================================================
